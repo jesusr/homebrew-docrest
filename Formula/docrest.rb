@@ -17,21 +17,22 @@ class Docrest < Formula
   include Language::Python::Virtualenv
 
   desc "Convert documentation between formats (md, docx, pdf, txt, diagrams)"
-  homepage "https://github.com/jesusr/docrest"
-  url "https://github.com/jesusr/docrest/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed"
+  homepage "https://github.com/REPLACE_ME/docrest"
+  url "https://github.com/REPLACE_ME/docrest/archive/refs/tags/v0.1.0.tar.gz"
+  sha256 "REPLACE_WITH_TARBALL_SHA256"
   license "MIT"
 
+  # Dependencies must be alphabetically ordered for `brew style`.
+  depends_on "pandoc" # required for md <-> docx, docx -> pdf
+  depends_on "pango"  # WeasyPrint runtime dependency for PDF output
   depends_on "python@3.13"
-  depends_on "pandoc"            # required for md <-> docx, docx -> pdf
-  depends_on "pango"             # WeasyPrint runtime dependency for PDF output
 
   # mmdc (Mermaid CLI) and plantuml are optional and installed at runtime via
   # `docrest install`, since neither has a stable Homebrew-only path that
   # avoids extra runtimes (Node.js / Java) you might not want pulled in.
 
   # RESOURCES START
-   resource "typer" do
+  resource "typer" do
     url "https://files.pythonhosted.org/packages/e4/51/9aed62104cea109b820bbd6c14245af756112017d309da813ef107d42e7e/typer-0.25.1.tar.gz"
     sha256 "9616eb8853a09ffeabab1698952f33c6f29ffdbceb4eaeecf571880e8d7664cc"
   end
@@ -72,6 +73,7 @@ class Docrest < Formula
   end
   # RESOURCES END
 
+
   def install
     virtualenv_install_with_resources
   end
@@ -81,6 +83,6 @@ class Docrest < Formula
     assert_match "Supported", shell_output("#{bin}/docrest formats")
     (testpath/"hello.md").write("# hello\n\nworld\n")
     system bin/"docrest", "convert", testpath/"hello.md", testpath/"hello.txt"
-    assert_predicate testpath/"hello.txt", :exist?
+    assert_path_exists testpath/"hello.txt"
   end
 end
