@@ -7,8 +7,8 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [macos-14, macos-13]
+        os: [macos-14, macos-13, ubuntu-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - run: brew test-bot --only-formulae --root-url=https://github.com/<user>/homebrew-docrest/releases/download/test-bot
+      - run: brew test-bot --only-formulae --root-url=https://github.com/jesusr/homebrew-docrest/releases/download/test-bot
